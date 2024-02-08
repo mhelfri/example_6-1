@@ -134,12 +134,15 @@ static void userInterfaceDisplayInit()
     displayInit();
      
     displayCharPositionWrite ( 0,0 );
-    displayStringWrite( "Temperature:" );
-
-    displayCharPositionWrite ( 0,1 );
+    //changed "temperature" to "Tmp"
+    displayStringWrite( "Tmp:" );
+    
+    //changed x from 0 to 9 and y from 1 to 0
+    displayCharPositionWrite ( 9,0 );
     displayStringWrite( "Gas:" );
     
-    displayCharPositionWrite ( 0,2 );
+    //changed y pos from 2 to 1
+    displayCharPositionWrite ( 0,1 );
     displayStringWrite( "Alarm:" );
 }
 
@@ -154,20 +157,28 @@ static void userInterfaceDisplayUpdate()
         accumulatedDisplayTime = 0;
 
         sprintf(temperatureString, "%.0f", temperatureSensorReadCelsius());
-        displayCharPositionWrite ( 12,0 );
+        //changed the x position from 12 to 4
+        displayCharPositionWrite ( 4,0 );
+        //temperatureString is the analog value for the temperature sensor in degrees Celsius
         displayStringWrite( temperatureString );
-        displayCharPositionWrite ( 14,0 );
+        //changed the x position from 14 to 6
+        displayCharPositionWrite ( 6,0 );
+        //the unicode for ° is \u00B0, but does not work.. not sure how to fix the error.
         displayStringWrite( "'C" );
 
-        displayCharPositionWrite ( 4,1 );
+        //changed from (4,1) tp (13,0)
+        displayCharPositionWrite ( 13,0 );
 
         if ( gasDetectorStateRead() ) {
-            displayStringWrite( "Detected    " );
+            //changed from "Detected" to D
+            displayStringWrite( "DET  " );
         } else {
-            displayStringWrite( "Not Detected" );
+            //changed from "Not Detected" to "ND"
+            displayStringWrite( "ND" );
         }
 
-        displayCharPositionWrite ( 6,2 );
+        //changed y pos from 2 to 1
+        displayCharPositionWrite ( 6,1 );
         
         if ( sirenStateRead() ) {
             displayStringWrite( "ON " );
